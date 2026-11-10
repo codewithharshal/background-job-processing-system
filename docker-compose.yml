@@ -1,0 +1,13 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  celery-worker:
+    build: .
+    command: celery -A workers.celery_app worker -l INFO -P prefork -c 2
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379/0
+    depends_on:
+      - redis
