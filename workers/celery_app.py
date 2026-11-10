@@ -6,6 +6,7 @@ broker_url = os.getenv("CELERY_BROKER_URL", "redis://localhost:6379/0")
 celery_app = Celery(
     "background_jobs",
     broker=broker_url,
+    include=["workers.tasks.csv_import"],
 )
 
 celery_app.conf.update(
