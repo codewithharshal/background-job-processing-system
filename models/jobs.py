@@ -1,9 +1,11 @@
 import uuid
 
-from sqlalchemy import String, JSON, Text,Integer
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, JSON, Integer
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.configDatabase import Base
+
+from models.job_attempts import JobAttempt
 
 class Job(Base):
     __tablename__ = "jobs"
@@ -19,13 +21,6 @@ class Job(Base):
         nullable=False
     )
 
-    status: Mapped[str] = mapped_column(
-        String(20),
-        default="QUEUED",
-        nullable=False,
-        index=True
-    )
-
     payload: Mapped[dict] = mapped_column(
         JSON,
         nullable=True
@@ -36,17 +31,20 @@ class Job(Base):
         nullable=True
     )
 
-    error_message: Mapped[str | None] = mapped_column(
-        Text,
-        nullable=True,
+    status: Mapped[str] = mapped_column(
+        String(20),
+        default="QUEUED",
+        nullable=False,
+        index=True
+)
+
+    max_attempt: Mapped[int] = mapped_column(
+        Integer,
+        default=5,
+        nullable=False
     )
 
-    attempt:Mapped[int] = mapped_column(
-        Integer,
-        default=1
-    )
-
-    max_attempts: Mapped[int] = mapped_column(
-        Integer,
-        default=5
+    attempts: Mapped[list["JobAttempt"]] = relationship(
+        back_populates="job",
+        cascade="all, delete-orphan"
     )

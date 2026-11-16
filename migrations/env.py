@@ -8,6 +8,7 @@ from alembic import context
 
 from database.configDatabase import Base
 import models.jobs  # noqa: F401  # Register ORM models with Base.metadata.
+import models.job_attempts
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
