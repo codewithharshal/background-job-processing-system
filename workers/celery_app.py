@@ -7,7 +7,7 @@ celery_app = Celery(
     "background_jobs",
     broker=broker_url,
     backend="mysql+aiomysql://root:admin123@localhost:3306/jobProcess",
-    include=["workers.tasks.csv_import"],
+    include=["workers.tasks.add_two_num"],
 )
 
 celery_app.conf.update(

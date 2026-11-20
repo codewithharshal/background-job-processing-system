@@ -6,7 +6,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from database.configDatabase import Base
+from database.dbSessionConfig import Base
 import models.jobs  # noqa: F401  # Register ORM models with Base.metadata.
 import models.job_attempts
 

@@ -3,7 +3,7 @@ import uuid
 from sqlalchemy import String,Integer, Text, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from database.configDatabase import Base
+from database.dbSessionConfig import Base
 
 class JobAttempt(Base):
     __tablename__ = "job_attempts"

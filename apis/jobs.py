@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from database.configDatabase import get_db
+from database.dbSessionConfig import get_async_db
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.jobs import Job
 
@@ -11,7 +11,7 @@ class AddRequest(BaseModel):
     b:int
 
 @router.post("/jobs", status_code=202)
-async def create_job(payload: AddRequest, session: AsyncSession = Depends(get_db)):
+async def create_job(payload: AddRequest, session: AsyncSession = Depends(get_async_db)):
     job = Job(
         task_type="ADD_NUMBERS",
         payload={
@@ -33,7 +33,7 @@ async def create_job(payload: AddRequest, session: AsyncSession = Depends(get_db
 
 
 @router.get("/jobs/{job_id}", status_code=200)
-async def get_job(job_id:str, session: AsyncSession = Depends(get_db)):
+async def get_job(job_id:str, session: AsyncSession = Depends(get_async_db)):
     job = await session.get(Job, job_id)
 
     if job is None:

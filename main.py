@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from sqlalchemy import text
 
-from database.configDatabase import engine
+from database.asyncdbConfig import engine
 from apis.jobs import router
 
 @asynccontextmanager
