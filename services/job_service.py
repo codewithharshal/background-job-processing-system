@@ -96,5 +96,6 @@ def process_job(job_id:str):
 
         return {
             "status":job.status,
-            "error":str(exc)
+            "error":str(exc),
+            "attempt":attempt.attempt
         }

@@ -19,6 +19,7 @@ celery_app.conf.update(
     task_ignore_result=True,
     worker_prefetch_multiplier=1,
     task_acks_late=True,
+    task_reject_on_worker_lost=True,
     task_soft_time_limit=840,
     task_time_limit=900,
     broker_connection_retry_on_startup=True,
