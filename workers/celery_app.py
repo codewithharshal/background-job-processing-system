@@ -3,11 +3,13 @@ import os
 from celery import Celery
 
 broker_url = os.getenv("CELERY_BROKER_URL", "redis://localhost:6379/0")
+result_backend = os.getenv("CELERY_RESULT_BACKEND")
+
 celery_app = Celery(
     "background_jobs",
     broker=broker_url,
-    backend="mysql+aiomysql://root:admin123@localhost:3306/jobProcess",
-    include=["workers.tasks.add_two_num"],
+    backend=result_backend,
+    include=["workers.tasks.job_tasks"],
 )
 
 celery_app.conf.update(

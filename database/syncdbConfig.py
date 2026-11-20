@@ -1,8 +1,15 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+database_url = os.getenv(
+    "DATABASE_URL",
+    "mysql+pymysql://root:admin123@localhost:3307/jobProcess",
+)
+
 engine = create_engine(
-    "mysql+pymysql://root:admin123@localhost:3306/jobProcess",
+    database_url,
     echo=True,
     pool_size=5,
     max_overflow=5,
